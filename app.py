@@ -12,13 +12,13 @@ countyExcel = 'D:\\Teacher Song\\spatil_time_label_test\\补充数据测试\\地
 # 输出路径
 outPath = 'D:\\Teacher Song\\spatil_time_label_test\\outExcel'
 
-yearList = ['2011', '2012', '2013', '2014', '2015']# 有效年份
-attributesList = ['POPYE', 'FIX', 'RESID', 'VPOP', 'CPOP', 'GDP', 'GDP1', 'GDP2', 'GDP3']# 有效字段名
-countyList = func.getCountyList(countyExcel)# 获取有效县区名称
+yearList = ['2011', '2012', '2013', '2014', '2015']  # 有效年份
+attributesList = ['POPYE', 'FIX', 'RESID', 'VPOP', 'CPOP', 'GDP', 'GDP1', 'GDP2', 'GDP3']  # 有效字段名
+countyList = func.getCountyList(countyExcel)  # 获取有效县区名称
 
 startTime = datetime.datetime.now()
 
-log = outPath+"\\log.txt" # 新建一个txt文件收集出现错误的excel表
+log = outPath+"\\log.txt"  # 新建一个txt文件收集出现错误的excel表
 files = open(log, "w")
 
 fileList = os.listdir(ExcelPath)
@@ -29,10 +29,10 @@ for f in fileList:
         fullPath = os.path.join(ExcelPath, f)
         print(fullPath)
         try:
-            startPoint = func.getStartPoint(fullPath) # 获取keyword的行列及其值
-            ExcelType = func.getExcelType(startPoint) # 获取excel表的类型
-            df = func.clearData(fullPath, startPoint) # 去掉多余的行列
-            dataList = func.getStandardData(df, ExcelType, startPoint) #将数据逐条存入dataList
+            startPoint = func.getStartPoint(fullPath)  # 获取keyword的行列及其值
+            ExcelType = func.getExcelType(startPoint)  # 获取excel表的类型
+            df = func.clearData(fullPath, startPoint)  # 去掉多余的行列
+            dataList = func.getStandardData(df, ExcelType, startPoint)  # 将数据逐条存入dataList
             # 将数据逐条规范化为[year, county, attributes, values],符合要求就存入StandarDataList中
             for data in dataList:
                 print(data)
@@ -57,7 +57,7 @@ for y in yearList:
     dfyear.to_excel(outPath+'\\excelBy{}.xls'.format(y))
 
 files.write(str(datetime.datetime.now()))
-files.close()# 在log.txt中写入日期，关闭log.txt文件。
+files.close()  # 在log.txt中写入日期，关闭log.txt文件。
 
 endTime = datetime.datetime.now()
 print('use time: {} s'.format(str((endTime-startTime).seconds)))
