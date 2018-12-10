@@ -4,9 +4,9 @@ import xlrd
 import re
 
 
-# 获取地名库Excel表中的所有地名，返回包含所有县区名的list
-def getCountyList(nameExcel):
-    countyList = []
+# 同一县可能能存在多种名称或简写，这里将他们转化为字典，同一县区无论什么名字对应的value值一样
+def getCountyDict(nameExcel):
+    countyDict = {}
     df = pd.read_excel(nameExcel)
     seriesNames = df.columns.values.tolist()
     rows = df.shape[0]
@@ -15,8 +15,23 @@ def getCountyList(nameExcel):
         for j in range(rows):
             county = series[j]
             if isinstance(county, str):
-                countyList.append(county)
-    return countyList
+                countyDict[county] = j+1
+    return countyDict
+
+
+# 获取地名库Excel表中的所有地名，返回包含所有县区名的list
+# def getCountyList(nameExcel):
+#     countyList = []
+#     df = pd.read_excel(nameExcel)
+#     seriesNames = df.columns.values.tolist()
+#     rows = df.shape[0]
+#     for name in seriesNames:
+#         series = df[name]
+#         for j in range(rows):
+#             county = series[j]
+#             if isinstance(county, str):
+#                 countyList.append(county)
+#     return countyList
 
 
 # 获取标注的行列号 即标注饭后list[rows, cols, keyWord]
@@ -101,8 +116,8 @@ def getStandardData(DataFrame, ExcelType, startPoint):
 
 
 # 将上面的数据逐条转化为严格的[year, county, attributes, values]顺序，并筛掉不符合的数据，最后返回
-def clearStandarData(standarData, countyList, yearList, attributesList):
-    clearStandarData = ['year', 'county', 'attributes', 'value']
+def clearStandarData(standarData, countyDict, countyList, yearList, attributesList):
+    clearStandarData = ['year', 'county', 'countyID', 'attributes', 'value']
     for data in standarData[:3]:
         if isinstance(data, str):
             data = data.replace('\n', '')
@@ -114,14 +129,15 @@ def clearStandarData(standarData, countyList, yearList, attributesList):
             clearStandarData[0] = data
         elif data in countyList:
             clearStandarData[1] = data
+            clearStandarData[2] = countyDict[data]
         elif data in attributesList:
-            clearStandarData[2] = data
+            clearStandarData[3] = data
 
     if isinstance(standarData[3], str):
-        clearStandarData[3] = float(standarData[3].replace('\n', ''))
+        clearStandarData[4] = float(standarData[3].replace('\n', ''))
     else:
-        clearStandarData[3] = standarData[3]
-    if clearStandarData[0] != 'year' and clearStandarData[1] != 'county' and clearStandarData[2] != 'attributes' and clearStandarData[3] != 'value':
+        clearStandarData[4] = standarData[3]
+    if clearStandarData[0] != 'year' and clearStandarData[1] != 'county' and clearStandarData[3] != 'attributes' and clearStandarData[4] != 'value':
         return clearStandarData
     else:
         return []
