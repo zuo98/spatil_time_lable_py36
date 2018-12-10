@@ -13,15 +13,15 @@ countyExcel = r'D:\Teacher Song\spatil_time_label_test\补充数据测试\地名
 # 输出路径
 outPath = r'D:\Teacher Song\spatil_time_label_test\outExcel'
 
-yearList = list(map(str, range(2011, 2016))) # 有效年份
+yearList = list(map(str, range(2011, 2016)))  # 有效年份
 attributesList = ['POPYE', 'FIX', 'RESID', 'VPOP', 'CPOP', 'GDP', 'GDP1', 'GDP2', 'GDP3']  # 有效字段名
-# countyDict = func.getCountyDict(countyExcel) #获取地名字典
+# countyDict = func.getCountyDict(countyExcel)  # 获取地名字典
 
 startTime = datetime.datetime.now()
 
 # 将地名字典保存在pickle文件中,在python2中关联shp数据时会用到。
 # pkl = open(outPath+'\\countyDict.pickle', 'wb')
-# pickle.dump(countyDict, pkl)
+# pickle.dump(countyDict, pkl, protocol=2)
 # pkl.close()
 
 pkl = open(outPath+'\\countyDict.pickle', 'rb')
