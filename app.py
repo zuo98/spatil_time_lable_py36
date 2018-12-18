@@ -1,4 +1,4 @@
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 import func
 import os
 import datetime
@@ -6,10 +6,10 @@ import pandas as pd
 import pickle
 
 
-# excel数据表路径
+# 已经标注的excel数据表路径
 ExcelPath = r'D:\Teacher Song\spatil_time_label_test\补充数据测试\excel'
 # 地名库excel数据表
-countyExcel = r'D:\Teacher Song\spatil_time_label_test\补充数据测试\地名库指标库\地名库.xlsx'
+countyExcel = r'D:\Teacher Song\spatil_time_label_test\补充数据测试\地名库指标库\地名库补充后.xls'
 # 输出路径
 outPath = r'D:\Teacher Song\spatil_time_label_test\outExcel'
 
