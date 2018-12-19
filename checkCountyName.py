@@ -9,7 +9,7 @@ shpPath = r'D:\Teacher Song\spatil_time_label_test\shp'
 countyExcel = r'D:\Teacher Song\spatil_time_label_test\补充数据测试\地名库指标库\地名库补充后.xls'
 
 rb = xlrd.open_workbook(countyExcel)
-table = rb.sheet_by_name("Sheet1")
+table = rb.sheet_by_index(0)
 rows = table.nrows
 print(rows)
 cols = table.ncols
