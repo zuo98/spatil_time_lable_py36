@@ -8,28 +8,27 @@ import pickle
 
 # 已经标注的excel数据表路径
 ExcelPath = r'D:\Teacher Song\spatil_time_label_test\补充数据测试\excel'
-# 地名库excel数据表
+# 补充后的地名库excel数据表
 countyExcel = r'D:\Teacher Song\spatil_time_label_test\补充数据测试\地名库指标库\地名库补充后.xls'
 # 输出路径
 outPath = r'D:\Teacher Song\spatil_time_label_test\outExcel'
 
 yearList = list(map(str, range(2011, 2016)))  # 有效年份
 attributesList = ['POPYE', 'FIX', 'RESID', 'VPOP', 'CPOP', 'GDP', 'GDP1', 'GDP2', 'GDP3']  # 有效字段名
-# countyDict = func.getCountyDict(countyExcel)  # 获取地名字典
+countyDict = func.getCountyDict(countyExcel)  # 获取地名字典
 
 startTime = datetime.datetime.now()
 
 # 将地名字典保存在pickle文件中,在python2中关联shp数据时会用到。
-# pkl = open(outPath+'\\countyDict.pickle', 'wb')
-# pickle.dump(countyDict, pkl, protocol=2)
-# pkl.close()
-
-pkl = open(outPath+'\\countyDict.pickle', 'rb')
-countyDict = pickle.load(pkl)
+pkl = open(outPath+'\\countyDict.pickle', 'wb')
+pickle.dump(countyDict, pkl, protocol=2)
 pkl.close()
 
-countyList = countyDict.keys()
+# pkl = open(outPath+'\\countyDict.pickle', 'rb')
+# countyDict = pickle.load(pkl)
+# pkl.close()
 
+countyList = countyDict.keys()
 log = outPath+"\\log.txt"  # 新建一个txt文件收集出现错误的excel表
 files = open(log, "w")
 
