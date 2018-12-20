@@ -2,6 +2,11 @@
 from xlutils.copy import copy
 import os
 import xlrd
+'''
+首先建立可能同名的县区名称库，保存在excel中。
+逐个检查未标注的原始Excel表数据，当原始数据中存在可能同名的县区，
+则将各县区名加上标记‘addcity’，例如：‘朝阳区’标记为‘addcity朝阳区’
+'''
 
 # 原始的未标注的excel表路径
 excelPath = r'D:\Teacher Song\spatil_time_label_test\补充数据测试\excel'

@@ -3,7 +3,9 @@ from dbfread import DBF
 from xlutils.copy import copy
 import os
 import xlrd
-
+'''
+获取shp数据的NAME字段和县区名称库，对比后补全地名库
+'''
 
 shpPath = r'D:\Teacher Song\spatil_time_label_test\shp'
 countyExcel = r'D:\Teacher Song\spatil_time_label_test\补充数据测试\地名库指标库\地名库补充后.xls'
